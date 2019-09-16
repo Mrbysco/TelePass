@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "#ingotGold"
+    },
+    "X": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "item": "telepass:gold_telepass"
+  }
+}

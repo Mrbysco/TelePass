@@ -1,0 +1,16 @@
+[
+{
+  "modid": "telepass",
+  "name": "TelePass",
+  "description": "Allowing players to teleport to each other",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Mrbysco"],
+  "credits": "'Perfect Strange' for the idea",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
