@@ -1,0 +1,14 @@
+modLoader="javafml"
+loaderVersion="[31,)"
+issueTrackerURL="https://github.com/Mrbysco/telepass"
+
+[[mods]]
+modId="telepass"
+version="${file.jarVersion}"
+displayName="Spoiled"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/telepass"
+authors="Mrbysco"
+credits="'Perfect Strange' for the idea"
+description='''
+Allowing players to teleport to each other
+'''

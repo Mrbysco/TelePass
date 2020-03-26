@@ -7,8 +7,8 @@
   ],
   "key": {
     "#": {
-      "item": "#gemDiamond"
-    },
+      "tag": "forge:gems/diamond"
+	},
     "X": {
       "item": "minecraft:ender_eye"
     }

@@ -1,108 +1,105 @@
 package com.mrbysco.telepass.item;
 
-import com.mrbysco.telepass.TelePass;
-
+import com.mrbysco.telepass.Reference;
+import com.mrbysco.telepass.init.TeleGroup;
+import com.mrbysco.telepass.util.PlayerUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
 public class ItemTeleCompass extends Item {
-	public ItemTeleCompass(String registryName, CompassMaterial material) {
-		this.maxStackSize = 1;
-		this.setCreativeTab(TelePass.teleTab);
-		this.setMaxDamage(material.getMaxUses());
-		
-		this.setTranslationKey(registryName);
-		this.setRegistryName(registryName);
-		
-		this.setNoRepair();
+	public ItemTeleCompass(Item.Properties properties, CompassMaterial material) {
+		super(properties.maxStackSize(1).group(TeleGroup.TELEPASS).maxDamage(material.getMaxUses()).setNoRepair());
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		
-		if(itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("ownerName")) {
-			String ownerName = itemstack.getTagCompound().getString("ownerName");
-			if(ownerName.equalsIgnoreCase(playerIn.getName())) {
-        		playerIn.sendMessage(new TextComponentTranslation("item.telepass.self", new Object[0]));
-        		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+		if(itemstack.hasTag() && itemstack.getTag().contains(Reference.OWNER_TAG)) {
+			String ownerName = itemstack.getTag().getString(Reference.OWNER_TAG);
+			if(ownerName.equalsIgnoreCase(playerIn.getName().getUnformattedComponentText())) {
+        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.self", new Object[0]));
+        		return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
 			}
 			
 			if(!worldIn.isRemote) {
 				boolean isOnline = false;
 				
-	        	for(EntityPlayer player : worldIn.playerEntities) {
-	        		if(player.getName().equalsIgnoreCase(ownerName)) {
+	        	for(PlayerEntity player : worldIn.getPlayers()) {
+	        		if(player.getName().getUnformattedComponentText().equalsIgnoreCase(ownerName)) {
 	        			isOnline = true;
 	        			break;
 	        		}
 	        	}
 	        	
 	        	if(isOnline) {
-    		        EntityPlayer owner = worldIn.getPlayerEntityByName(ownerName);
+    		        PlayerEntity owner = PlayerUtil.getPlayerEntityByName(worldIn, ownerName);
 	        		if(owner.dimension != playerIn.dimension) {
-		        		playerIn.sendMessage(new TextComponentTranslation("item.telepass.dimension", new Object[] { TextFormatting.RED + ownerName }));
-	        			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+		        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.dimension", new Object[] { TextFormatting.RED + ownerName }));
+	        			return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
 	        		}
 	        			
-	        		if (!playerIn.capabilities.isCreativeMode)
+	        		if (!playerIn.abilities.isCreativeMode)
 			        {
-			            itemstack.damageItem(1, playerIn);
+			            itemstack.damageItem(1, playerIn, (p_219998_1_) -> {
+							p_219998_1_.sendBreakAnimation(handIn);
+						});
 			        }
 	        		
 	        		if(!(playerIn instanceof FakePlayer)) {
-	    		        worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+	    		        worldIn.playSound((PlayerEntity)null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 	    		        playerIn.getCooldownTracker().setCooldown(this, 20);
 	    		        
-    		        	playerIn.setPositionAndUpdate(owner.posX, owner.posY, owner.posZ);
+    		        	playerIn.setPositionAndUpdate(owner.getPosX(), owner.getPosY(), owner.getPosZ());
 	    			}
 	        		
 	        	} else {
-	        		playerIn.sendMessage(new TextComponentTranslation("item.telepass.offline", new Object[] { TextFormatting.RED + ownerName }));
+	        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.offline", new Object[] { TextFormatting.RED + ownerName }));
 	        	}
 			}
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+			return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
 		} else {
-			return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
+			return new ActionResult<ItemStack>(ActionResultType.FAIL, itemstack);
 		}
 	}
-	
+
 	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if(!stack.hasTagCompound() && !worldIn.isRemote) {
-			if(entityIn instanceof EntityPlayer && !(entityIn instanceof FakePlayer)) {
-				EntityPlayer player = (EntityPlayer) entityIn;
-				NBTTagCompound tag = new NBTTagCompound();
-				tag.setString("ownerName", player.getName());
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if(!stack.hasTag() && !worldIn.isRemote) {
+			if(entityIn instanceof PlayerEntity && !(entityIn instanceof FakePlayer)) {
+				PlayerEntity player = (PlayerEntity) entityIn;
+				CompoundNBT tag = new CompoundNBT();
+				tag.putString(Reference.OWNER_TAG, player.getName().getUnformattedComponentText());
 				
-				stack.setTagCompound(tag);
+				stack.setTag(tag);
 			}
 		}
-		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
+		super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
 	}
-	
+
 	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
-		if(stack.hasTagCompound()) {
-			NBTTagCompound tag = stack.getTagCompound();
-			String owner = tag.getString("ownerName");
-			
-			return owner + "'s " +  I18n.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name").trim();
+	public ITextComponent getDisplayName(ItemStack stack) {
+		if(stack.hasTag() && stack.getTag().contains(Reference.OWNER_TAG)) {
+			CompoundNBT tag = stack.getTag();
+			String owner = tag.getString(Reference.OWNER_TAG);
+
+			return new StringTextComponent(owner + "'s ").appendSibling(new TranslationTextComponent(this.getTranslationKey(stack)));
 		} else {
-			return super.getItemStackDisplayName(stack);
+			return super.getDisplayName(stack);
 		}
 	}
 }

@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {
-      "item": "#ingotGold"
+      "tag": "forge:ingots/gold"
     },
     "X": {
       "item": "minecraft:ender_eye"
