@@ -8,7 +8,7 @@ public enum CompassMaterial {
 	
 	private final int durability;
 
-	private CompassMaterial(int durability)
+	CompassMaterial(int durability)
     {
         this.durability = durability;
     }

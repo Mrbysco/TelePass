@@ -29,11 +29,11 @@ public class ItemTeleCompass extends Item {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		
-		if(itemstack.hasTag() && itemstack.getTag().contains(Reference.OWNER_TAG)) {
+		if(itemstack.hasTag() && itemstack.getTag() != null && itemstack.getTag().contains(Reference.OWNER_TAG)) {
 			String ownerName = itemstack.getTag().getString(Reference.OWNER_TAG);
 			if(ownerName.equalsIgnoreCase(playerIn.getName().getUnformattedComponentText())) {
-        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.self", new Object[0]));
-        		return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
+        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.self"));
+        		return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 			}
 			
 			if(!worldIn.isRemote) {
@@ -48,19 +48,17 @@ public class ItemTeleCompass extends Item {
 	        	
 	        	if(isOnline) {
     		        PlayerEntity owner = PlayerUtil.getPlayerEntityByName(worldIn, ownerName);
-	        		if(owner.dimension != playerIn.dimension) {
-		        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.dimension", new Object[] { TextFormatting.RED + ownerName }));
-	        			return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
+	        		if(owner != null && owner.dimension != playerIn.dimension) {
+		        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.dimension", TextFormatting.RED + ownerName));
+	        			return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 	        		}
 	        			
 	        		if (!playerIn.abilities.isCreativeMode)
 			        {
-			            itemstack.damageItem(1, playerIn, (p_219998_1_) -> {
-							p_219998_1_.sendBreakAnimation(handIn);
-						});
+			            itemstack.damageItem(1, playerIn, (p_219998_1_) -> p_219998_1_.sendBreakAnimation(handIn));
 			        }
 	        		
-	        		if(!(playerIn instanceof FakePlayer)) {
+	        		if(!(playerIn instanceof FakePlayer) && owner != null) {
 	    		        worldIn.playSound((PlayerEntity)null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 	    		        playerIn.getCooldownTracker().setCooldown(this, 20);
 	    		        
@@ -68,12 +66,12 @@ public class ItemTeleCompass extends Item {
 	    			}
 	        		
 	        	} else {
-	        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.offline", new Object[] { TextFormatting.RED + ownerName }));
+	        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.offline", TextFormatting.RED + ownerName));
 	        	}
 			}
-			return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
+			return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 		} else {
-			return new ActionResult<ItemStack>(ActionResultType.FAIL, itemstack);
+			return new ActionResult<>(ActionResultType.FAIL, itemstack);
 		}
 	}
 
@@ -93,7 +91,7 @@ public class ItemTeleCompass extends Item {
 
 	@Override
 	public ITextComponent getDisplayName(ItemStack stack) {
-		if(stack.hasTag() && stack.getTag().contains(Reference.OWNER_TAG)) {
+		if(stack.hasTag() && stack.getTag() != null && stack.getTag().contains(Reference.OWNER_TAG)) {
 			CompoundNBT tag = stack.getTag();
 			String owner = tag.getString(Reference.OWNER_TAG);
 

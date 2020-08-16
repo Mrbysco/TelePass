@@ -7,7 +7,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
 
-//@Config(modid = Reference.MOD_ID, category = "", name = "TelePass")
 public class TeleConfig {
 
 	public static class Server {
@@ -19,11 +18,11 @@ public class TeleConfig {
 					.push("Server");
 
 			goldDurability = builder
-					.comment("Defines the amount of uses the Gold TelePass has [default: 15]")
+					.comment("Defines the amount of uses the Gold TelePass has [Default: 15]")
 					.defineInRange("diamondDurability", 15, 0, Integer.MAX_VALUE);
 
 			diamondDurability = builder
-					.comment("Defines the amount of uses the Diamond TelePass has [default: 1000]")
+					.comment("Defines the amount of uses the Diamond TelePass has [Default: 1000]")
 					.defineInRange("diamondDurability", 1000, 0, Integer.MAX_VALUE);
 
 			builder.pop();
@@ -40,7 +39,7 @@ public class TeleConfig {
 
 	@SubscribeEvent
 	public static void onLoad(final ModConfig.Loading configEvent) {
-		TelePass.logger.debug("Loaded TelePass config file {}", configEvent.getConfig().getFileName());
+		TelePass.logger.debug("Loaded TelePass' config file {}", configEvent.getConfig().getFileName());
 	}
 
 	@SubscribeEvent

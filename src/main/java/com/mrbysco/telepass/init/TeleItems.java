@@ -9,7 +9,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TeleItems {
-    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Reference.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MOD_ID);
 
     public static final RegistryObject<Item> GOLD_TELEPASS = ITEMS.register("gold_telepass", () -> new ItemTeleCompass(itemBuilder(), CompassMaterial.GOLD));
     public static final RegistryObject<Item> DIAMOND_TELEPASS = ITEMS.register("diamond_telepass", () -> new ItemTeleCompass(itemBuilder(), CompassMaterial.DIAMOND));

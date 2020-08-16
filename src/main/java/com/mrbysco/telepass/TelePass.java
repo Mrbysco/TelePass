@@ -1,7 +1,6 @@
 package com.mrbysco.telepass;
 
 import com.mrbysco.telepass.config.TeleConfig;
-import com.mrbysco.telepass.init.TeleGroup;
 import com.mrbysco.telepass.init.TeleItems;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -14,14 +13,11 @@ import org.apache.logging.log4j.Logger;
 @Mod(Reference.MOD_ID)
 public class TelePass {
 	public static final Logger logger = LogManager.getLogger(Reference.MOD_ID);
-		
-	public static TeleGroup teleGroup = new TeleGroup();
 
 	public TelePass() {
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, TeleConfig.serverSpec);
 		FMLJavaModLoadingContext.get().getModEventBus().register(TeleConfig.class);
-
 
 		TeleItems.ITEMS.register(eventBus);
 	}
