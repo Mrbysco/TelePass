@@ -29,45 +29,43 @@ public class ItemTeleCompass extends Item {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		
-		if(itemstack.hasTag() && itemstack.getTag() != null && itemstack.getTag().contains(Reference.OWNER_TAG)) {
+		if(!worldIn.isRemote && itemstack.hasTag() && itemstack.getTag() != null && itemstack.getTag().contains(Reference.OWNER_TAG)) {
 			String ownerName = itemstack.getTag().getString(Reference.OWNER_TAG);
 			if(ownerName.equalsIgnoreCase(playerIn.getName().getUnformattedComponentText())) {
         		playerIn.sendMessage(new TranslationTextComponent("item.telepass.self"));
         		return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 			}
-			
-			if(!worldIn.isRemote) {
-				boolean isOnline = false;
-				
-	        	for(PlayerEntity player : worldIn.getPlayers()) {
-	        		if(player.getName().getUnformattedComponentText().equalsIgnoreCase(ownerName)) {
-	        			isOnline = true;
-	        			break;
-	        		}
-	        	}
-	        	
-	        	if(isOnline) {
-    		        PlayerEntity owner = PlayerUtil.getPlayerEntityByName(worldIn, ownerName);
-	        		if(owner != null && owner.dimension != playerIn.dimension) {
-		        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.dimension", TextFormatting.RED + ownerName));
-	        			return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
-	        		}
-	        			
-	        		if (!playerIn.abilities.isCreativeMode)
-			        {
-			            itemstack.damageItem(1, playerIn, (p_219998_1_) -> p_219998_1_.sendBreakAnimation(handIn));
-			        }
-	        		
-	        		if(!(playerIn instanceof FakePlayer) && owner != null) {
-	    		        worldIn.playSound((PlayerEntity)null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
-	    		        playerIn.getCooldownTracker().setCooldown(this, 20);
-	    		        
-    		        	playerIn.setPositionAndUpdate(owner.getPosX(), owner.getPosY(), owner.getPosZ());
-	    			}
-	        		
-	        	} else {
-	        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.offline", TextFormatting.RED + ownerName));
-	        	}
+
+			boolean isOnline = false;
+
+			for(PlayerEntity player : worldIn.getPlayers()) {
+				if(player.getName().getUnformattedComponentText().equalsIgnoreCase(ownerName)) {
+					isOnline = true;
+					break;
+				}
+			}
+
+			if(isOnline) {
+				PlayerEntity owner = PlayerUtil.getPlayerEntityByName(worldIn, ownerName);
+				if(owner != null && owner.dimension != playerIn.dimension) {
+					playerIn.sendMessage(new TranslationTextComponent("item.telepass.dimension", TextFormatting.RED + ownerName));
+					return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
+				}
+
+				if (!playerIn.abilities.isCreativeMode)
+				{
+					itemstack.damageItem(1, playerIn, (p_219998_1_) -> p_219998_1_.sendBreakAnimation(handIn));
+				}
+
+				if(!(playerIn instanceof FakePlayer) && owner != null) {
+					worldIn.playSound((PlayerEntity)null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+					playerIn.getCooldownTracker().setCooldown(this, 20);
+
+					playerIn.setPositionAndUpdate(owner.getPosX(), owner.getPosY(), owner.getPosZ());
+				}
+
+			} else {
+				playerIn.sendMessage(new TranslationTextComponent("item.telepass.offline", TextFormatting.RED + ownerName));
 			}
 			return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 		} else {
@@ -77,13 +75,15 @@ public class ItemTeleCompass extends Item {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if(!stack.hasTag() && !worldIn.isRemote) {
-			if(entityIn instanceof PlayerEntity && !(entityIn instanceof FakePlayer)) {
-				PlayerEntity player = (PlayerEntity) entityIn;
-				CompoundNBT tag = new CompoundNBT();
-				tag.putString(Reference.OWNER_TAG, player.getName().getUnformattedComponentText());
-				
-				stack.setTag(tag);
+		if(!worldIn.isRemote) {
+			if(stack.hasTag()) {
+				CompoundNBT tag = stack.getTag() == null ? new CompoundNBT() : stack.getTag();
+				if(!tag.contains(Reference.OWNER_TAG) && entityIn instanceof PlayerEntity && !(entityIn instanceof FakePlayer)) {
+					PlayerEntity player = (PlayerEntity) entityIn;
+					tag.putString(Reference.OWNER_TAG, player.getName().getUnformattedComponentText());
+
+					stack.setTag(tag);
+				}
 			}
 		}
 		super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
