@@ -5,6 +5,7 @@ bin
 .metadata
 .classpath
 .project
+classes
 
 # idea
 out
@@ -20,3 +21,4 @@ build
 # other
 eclipse
 run
+*.psd
