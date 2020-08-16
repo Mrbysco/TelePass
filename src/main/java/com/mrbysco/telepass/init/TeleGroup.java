@@ -9,7 +9,7 @@ public class TeleGroup {
 	public static final ItemGroup TELEPASS = new ItemGroup(Reference.MOD_ID) {
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(Items.COMPASS);
+			return new ItemStack(TeleItems.GOLD_TELEPASS.get());
 		}
 	}.setTabPath("telepass");
 }

@@ -13,6 +13,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -21,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
 public class ItemTeleCompass extends Item {
+
 	public ItemTeleCompass(Item.Properties properties, CompassMaterial material) {
 		super(properties.maxStackSize(1).group(TeleGroup.TELEPASS).maxDamage(material.getMaxUses()).setNoRepair());
 	}
@@ -32,7 +34,7 @@ public class ItemTeleCompass extends Item {
 		if(!worldIn.isRemote && itemstack.hasTag() && itemstack.getTag() != null && itemstack.getTag().contains(Reference.OWNER_TAG)) {
 			String ownerName = itemstack.getTag().getString(Reference.OWNER_TAG);
 			if(ownerName.equalsIgnoreCase(playerIn.getName().getUnformattedComponentText())) {
-        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.self"));
+        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.self"), Util.DUMMY_UUID);
         		return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 			}
 
@@ -47,13 +49,12 @@ public class ItemTeleCompass extends Item {
 
 			if(isOnline) {
 				PlayerEntity owner = PlayerUtil.getPlayerEntityByName(worldIn, ownerName);
-				if(owner != null && owner.dimension != playerIn.dimension) {
-					playerIn.sendMessage(new TranslationTextComponent("item.telepass.dimension", TextFormatting.RED + ownerName));
+				if(owner != null && owner.getEntityWorld().func_234923_W_().getRegistryName() != playerIn.getEntityWorld().func_234923_W_().getRegistryName()) {
+					playerIn.sendMessage(new TranslationTextComponent("item.telepass.dimension", TextFormatting.RED + ownerName), Util.DUMMY_UUID);
 					return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 				}
 
-				if (!playerIn.abilities.isCreativeMode)
-				{
+				if (!playerIn.abilities.isCreativeMode) {
 					itemstack.damageItem(1, playerIn, (p_219998_1_) -> p_219998_1_.sendBreakAnimation(handIn));
 				}
 
@@ -65,7 +66,7 @@ public class ItemTeleCompass extends Item {
 				}
 
 			} else {
-				playerIn.sendMessage(new TranslationTextComponent("item.telepass.offline", TextFormatting.RED + ownerName));
+				playerIn.sendMessage(new TranslationTextComponent("item.telepass.offline", TextFormatting.RED + ownerName), Util.DUMMY_UUID);
 			}
 			return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 		} else {
@@ -95,7 +96,7 @@ public class ItemTeleCompass extends Item {
 			CompoundNBT tag = stack.getTag();
 			String owner = tag.getString(Reference.OWNER_TAG);
 
-			return new StringTextComponent(owner + "'s ").appendSibling(new TranslationTextComponent(this.getTranslationKey(stack)));
+			return new StringTextComponent(owner + "'s ").append(new TranslationTextComponent(this.getTranslationKey(stack)));
 		} else {
 			return super.getDisplayName(stack);
 		}
