@@ -49,7 +49,7 @@ public class ItemTeleCompass extends Item {
 
 			if(isOnline) {
 				PlayerEntity owner = PlayerUtil.getPlayerEntityByName(worldIn, ownerName);
-				if(owner != null && owner.getEntityWorld().func_234923_W_().getRegistryName() != playerIn.getEntityWorld().func_234923_W_().getRegistryName()) {
+				if(owner != null && owner.getEntityWorld().getDimensionKey().getRegistryName() != playerIn.getEntityWorld().getDimensionKey().getRegistryName()) {
 					playerIn.sendMessage(new TranslationTextComponent("item.telepass.dimension", TextFormatting.RED + ownerName), Util.DUMMY_UUID);
 					return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 				}
