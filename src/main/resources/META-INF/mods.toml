@@ -6,7 +6,7 @@ license="MIT"
 [[mods]]
 modId="telepass"
 version="${file.jarVersion}"
-displayName="Spoiled"
+displayName="Telepass"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/telepass"
 authors="Mrbysco"
 credits="'Perfect Strange' for the idea"
