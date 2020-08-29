@@ -86,7 +86,7 @@ public class ItemTeleCompass extends Item {
 		if(!worldIn.isRemote) {
 			if(stack.getChildTag(Reference.OWNER_TAG) == null) {
 				CompoundNBT tag = stack.getTag() == null ? new CompoundNBT() : stack.getTag();
-				if(!tag.contains(Reference.OWNER_TAG) && entityIn instanceof PlayerEntity && !(entityIn instanceof FakePlayer)) {
+				if(entityIn instanceof PlayerEntity && !(entityIn instanceof FakePlayer)) {
 					PlayerEntity player = (PlayerEntity) entityIn;
 					tag.putString(Reference.OWNER_TAG, player.getName().getUnformattedComponentText());
 
