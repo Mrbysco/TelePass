@@ -38,10 +38,10 @@ public class ItemTeleCompass extends Item {
 		
 		if(!worldIn.isRemote && itemstack.hasTag() && itemstack.getTag() != null && itemstack.getTag().contains(Reference.OWNER_TAG)) {
 			String ownerName = itemstack.getTag().getString(Reference.OWNER_TAG);
-//			if(ownerName.equalsIgnoreCase(playerIn.getName().getUnformattedComponentText())) {
-//        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.self"));
-//        		return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
-//			}
+			if(ownerName.equalsIgnoreCase(playerIn.getName().getUnformattedComponentText())) {
+        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.self"));
+        		return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
+			}
 
 			boolean isOnline = false;
 
