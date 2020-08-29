@@ -22,11 +22,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
 public class ItemTeleCompass extends Item {
+	private final CompassMaterial material;
 
 	public ItemTeleCompass(Item.Properties properties, CompassMaterial material) {
-		super(properties.maxStackSize(1).group(TeleGroup.TELEPASS).maxDamage(material.getMaxUses()).setNoRepair());
+		super(properties.maxStackSize(1).group(TeleGroup.TELEPASS).maxStackSize(1).setNoRepair());
+		this.material = material;
 	}
-	
+
+	@Override
+	public int getMaxDamage(ItemStack stack) {
+		return material.getMaxUses();
+	}
+
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
@@ -77,7 +84,7 @@ public class ItemTeleCompass extends Item {
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if(!worldIn.isRemote) {
-			if(stack.hasTag()) {
+			if(stack.getChildTag(Reference.OWNER_TAG) == null) {
 				CompoundNBT tag = stack.getTag() == null ? new CompoundNBT() : stack.getTag();
 				if(!tag.contains(Reference.OWNER_TAG) && entityIn instanceof PlayerEntity && !(entityIn instanceof FakePlayer)) {
 					PlayerEntity player = (PlayerEntity) entityIn;
@@ -92,7 +99,7 @@ public class ItemTeleCompass extends Item {
 
 	@Override
 	public ITextComponent getDisplayName(ItemStack stack) {
-		if(stack.hasTag() && stack.getTag() != null && stack.getTag().contains(Reference.OWNER_TAG)) {
+		if(stack.getChildTag(Reference.OWNER_TAG) != null) {
 			CompoundNBT tag = stack.getTag();
 			String owner = tag.getString(Reference.OWNER_TAG);
 
