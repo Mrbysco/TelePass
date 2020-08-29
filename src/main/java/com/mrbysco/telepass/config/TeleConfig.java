@@ -19,7 +19,7 @@ public class TeleConfig {
 
 			goldDurability = builder
 					.comment("Defines the amount of uses the Gold TelePass has [Default: 15]")
-					.defineInRange("diamondDurability", 15, 0, Integer.MAX_VALUE);
+					.defineInRange("goldDurability", 15, 0, Integer.MAX_VALUE);
 
 			diamondDurability = builder
 					.comment("Defines the amount of uses the Diamond TelePass has [Default: 1000]")

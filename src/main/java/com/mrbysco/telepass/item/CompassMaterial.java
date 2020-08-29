@@ -2,19 +2,21 @@ package com.mrbysco.telepass.item;
 
 import com.mrbysco.telepass.config.TeleConfig;
 
-public enum CompassMaterial {
-	GOLD(TeleConfig.SERVER.goldDurability.get()),
-    DIAMOND(TeleConfig.SERVER.diamondDurability.get());
-	
-	private final int durability;
+import java.util.function.Supplier;
 
-	CompassMaterial(int durability)
+public enum CompassMaterial {
+	GOLD(() -> TeleConfig.SERVER.goldDurability.get()),
+    DIAMOND(() -> TeleConfig.SERVER.diamondDurability.get());
+	
+	private final Supplier<Integer> durability;
+
+	CompassMaterial(Supplier<Integer> durability)
     {
         this.durability = durability;
     }
 	
 	public int getMaxUses()
     {
-        return this.durability;
+        return this.durability.get();
     }
 }

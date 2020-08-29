@@ -21,20 +21,27 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
 public class ItemTeleCompass extends Item {
+	private final CompassMaterial material;
 	public ItemTeleCompass(Item.Properties properties, CompassMaterial material) {
-		super(properties.maxStackSize(1).group(TeleGroup.TELEPASS).maxDamage(material.getMaxUses()).setNoRepair());
+		super(properties.maxStackSize(1).group(TeleGroup.TELEPASS).maxStackSize(1).setNoRepair());
+		this.material = material;
 	}
-	
+
+	@Override
+	public int getMaxDamage(ItemStack stack) {
+		return material.getMaxUses();
+	}
+
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		
 		if(!worldIn.isRemote && itemstack.hasTag() && itemstack.getTag() != null && itemstack.getTag().contains(Reference.OWNER_TAG)) {
 			String ownerName = itemstack.getTag().getString(Reference.OWNER_TAG);
-			if(ownerName.equalsIgnoreCase(playerIn.getName().getUnformattedComponentText())) {
-        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.self"));
-        		return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
-			}
+//			if(ownerName.equalsIgnoreCase(playerIn.getName().getUnformattedComponentText())) {
+//        		playerIn.sendMessage(new TranslationTextComponent("item.telepass.self"));
+//        		return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
+//			}
 
 			boolean isOnline = false;
 
@@ -52,8 +59,7 @@ public class ItemTeleCompass extends Item {
 					return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 				}
 
-				if (!playerIn.abilities.isCreativeMode)
-				{
+				if (!playerIn.abilities.isCreativeMode) {
 					itemstack.damageItem(1, playerIn, (p_219998_1_) -> p_219998_1_.sendBreakAnimation(handIn));
 				}
 
@@ -76,7 +82,7 @@ public class ItemTeleCompass extends Item {
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if(!worldIn.isRemote) {
-			if(stack.hasTag()) {
+ 			if(stack.getChildTag(Reference.OWNER_TAG) == null) {
 				CompoundNBT tag = stack.getTag() == null ? new CompoundNBT() : stack.getTag();
 				if(!tag.contains(Reference.OWNER_TAG) && entityIn instanceof PlayerEntity && !(entityIn instanceof FakePlayer)) {
 					PlayerEntity player = (PlayerEntity) entityIn;
