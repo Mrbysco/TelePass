@@ -84,7 +84,7 @@ public class ItemTeleCompass extends Item {
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if(!worldIn.isRemote) {
-			if(stack.getChildTag(Reference.OWNER_TAG) == null) {
+			if((stack.hasTag() && stack.getTag() != null && !stack.getTag().contains(Reference.OWNER_TAG)) || !stack.hasTag() || stack.getTag() == null) {
 				CompoundNBT tag = stack.getTag() == null ? new CompoundNBT() : stack.getTag();
 				if(entityIn instanceof PlayerEntity && !(entityIn instanceof FakePlayer)) {
 					PlayerEntity player = (PlayerEntity) entityIn;
