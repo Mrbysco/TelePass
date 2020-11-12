@@ -1,0 +1,15 @@
+#Конфиг
+config.telepass.gold_durability=Определяет кол-во использований Золотым телепереходом, имеется [по-умолчанию: 15]
+config.telepass.diamond_durability=Определяет кол-во использований Алмазным телепереходом, имеется [по-умолчанию: 1000]
+
+#Творческаяв вкладка
+itemGroup.telepass=TelePass
+
+#Предметы
+item.gold_telepass.name=Золотой телепереход
+item.diamond_telepass.name=Алмазный телепереход
+
+#Сообщения
+item.telepass.offline=§cСвязано с игроком§r %s §c оффлайн, телепортация была отменена§r
+item.telepass.self=§cВы не можете телепортироваться к самому себе!§r
+item.telepass.dimension=§cСвязано с игроком§r %s §c в другом измерении, телепортация была отменена§r
