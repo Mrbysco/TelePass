@@ -10,13 +10,11 @@ public enum CompassMaterial {
 
     private final Supplier<Integer> durability;
 
-    CompassMaterial(Supplier<Integer> durability)
-    {
+    CompassMaterial(Supplier<Integer> durability) {
         this.durability = durability;
     }
 
-    public int getMaxUses()
-    {
+    public int getMaxUses() {
         return this.durability.get();
     }
 }

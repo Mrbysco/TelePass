@@ -8,15 +8,13 @@ import java.util.List;
 
 public class PlayerUtil {
     @Nullable
-    public static PlayerEntity getPlayerEntityByName(World worldIn, String name)
-    {
+    public static PlayerEntity getPlayerEntityByName(World worldIn, String name) {
         List<? extends PlayerEntity> playerEntities = worldIn.getPlayers();
         for (PlayerEntity playerEntity : playerEntities) {
             if (name.equals(playerEntity.getName().getUnformattedComponentText())) {
                 return playerEntity;
             }
         }
-
         return null;
     }
 }

@@ -44,7 +44,6 @@ public class ItemTeleCompass extends Item {
         		playerIn.sendMessage(new TranslationTextComponent("item.telepass.self"), Util.DUMMY_UUID);
         		return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 			}
-
 			boolean isOnline = false;
 
 			for(PlayerEntity player : worldIn.getPlayers()) {
@@ -71,7 +70,6 @@ public class ItemTeleCompass extends Item {
 
 					playerIn.setPositionAndUpdate(owner.getPosX(), owner.getPosY(), owner.getPosZ());
 				}
-
 			} else {
 				playerIn.sendMessage(new TranslationTextComponent("item.telepass.offline", TextFormatting.RED + ownerName), Util.DUMMY_UUID);
 			}
@@ -102,7 +100,6 @@ public class ItemTeleCompass extends Item {
 		if(stack.hasTag() && stack.getTag() != null && stack.getTag().contains(Reference.OWNER_TAG)) {
 			CompoundNBT tag = stack.getTag();
 			String owner = tag.getString(Reference.OWNER_TAG);
-
 			return new StringTextComponent(owner + "'s ").append(new TranslationTextComponent(this.getTranslationKey(stack)));
 		} else {
 			return super.getDisplayName(stack);
