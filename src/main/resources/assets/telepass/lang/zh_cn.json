@@ -1,0 +1,17 @@
+{
+    "_comment": "Config",
+    "config.telepass.gold_durability": "设置黄金的传送方块使用次数，默认是15啦",
+    "config.telepass.diamond_durability": "设置钻石的传送方块使用次数，默认是1000啦",
+
+    "_comment": "Creative Tab",
+    "itemGroup.telepass": "传送",
+
+    "_comment": "Items",
+    "item.telepass.gold_telepass": "金制传送方块",
+    "item.telepass.diamond_telepass": "钻石制传送方块",
+
+    "_comment": "Messages",
+    "item.telepass.offline": "§c你要传送的这个人§r %s §c已经下线了(也有可能没上线过)，现在只能传送个寂寞§r",
+    "item.telepass.self": "§c你自己不能传送到自己这，懂？§r",
+    "item.telepass.dimension": "§c你要传送的这个人§r %s §c和你不在一个世界，所以作者不让传送了，懂？§r"
+}
