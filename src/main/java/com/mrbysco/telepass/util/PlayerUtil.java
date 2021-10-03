@@ -9,9 +9,9 @@ import java.util.List;
 public class PlayerUtil {
     @Nullable
     public static PlayerEntity getPlayerEntityByName(World worldIn, String name) {
-        List<? extends PlayerEntity> playerEntities = worldIn.getPlayers();
+        List<? extends PlayerEntity> playerEntities = worldIn.players();
         for (PlayerEntity playerEntity : playerEntities) {
-            if (name.equals(playerEntity.getName().getUnformattedComponentText())) {
+            if (name.equals(playerEntity.getName().getContents())) {
                 return playerEntity;
             }
         }

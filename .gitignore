@@ -5,7 +5,6 @@ bin
 .metadata
 .classpath
 .project
-classes
 
 # idea
 out
@@ -17,6 +16,7 @@ out
 # gradle
 build
 .gradle
+logs
 
 # other
 eclipse
