@@ -5,8 +5,8 @@ import com.mrbysco.telepass.config.TeleConfig;
 import java.util.function.Supplier;
 
 public enum CompassMaterial {
-    GOLD(() -> TeleConfig.SERVER.goldDurability.get()),
-    DIAMOND(() -> TeleConfig.SERVER.diamondDurability.get());
+    GOLD(() -> TeleConfig.COMMON.goldDurability.get()),
+    DIAMOND(() -> TeleConfig.COMMON.diamondDurability.get());
 
     private final Supplier<Integer> durability;
 

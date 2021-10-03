@@ -3,8 +3,8 @@ package com.mrbysco.telepass.init;
 import com.mrbysco.telepass.Reference;
 import com.mrbysco.telepass.item.CompassMaterial;
 import com.mrbysco.telepass.item.ItemTeleCompass;
-import net.minecraft.item.Item;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 

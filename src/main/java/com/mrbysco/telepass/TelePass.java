@@ -5,7 +5,7 @@ import com.mrbysco.telepass.init.TeleItems;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +16,7 @@ public class TelePass {
 
 	public TelePass() {
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, TeleConfig.serverSpec);
+		ModLoadingContext.get().registerConfig(Type.COMMON, TeleConfig.commonSpec);
 		FMLJavaModLoadingContext.get().getModEventBus().register(TeleConfig.class);
 
 		TeleItems.ITEMS.register(eventBus);
