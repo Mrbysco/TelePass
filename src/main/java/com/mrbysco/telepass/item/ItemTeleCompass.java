@@ -84,8 +84,7 @@ public class ItemTeleCompass extends Item {
 		if(!worldIn.isClientSide) {
 			if((stack.hasTag() && stack.getTag() != null && !stack.getTag().contains(Reference.OWNER_TAG)) || !stack.hasTag() || stack.getTag() == null) {
 				CompoundTag tag = stack.getTag() == null ? new CompoundTag() : stack.getTag();
-				if(entityIn instanceof Player && !(entityIn instanceof FakePlayer)) {
-					Player player = (Player) entityIn;
+				if(entityIn instanceof Player player && !(entityIn instanceof FakePlayer)) {
 					tag.putString(Reference.OWNER_TAG, player.getName().getContents());
 
 					stack.setTag(tag);
