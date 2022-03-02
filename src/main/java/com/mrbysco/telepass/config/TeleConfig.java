@@ -28,6 +28,7 @@ public class TeleConfig {
 			builder.pop();
 		}
 	}
+
 	public static final ForgeConfigSpec commonSpec;
 	public static final Common COMMON;
 
@@ -39,11 +40,11 @@ public class TeleConfig {
 
 	@SubscribeEvent
 	public static void onLoad(final ModConfigEvent.Loading configEvent) {
-		TelePass.logger.debug("Loaded TelePass' config file {}", configEvent.getConfig().getFileName());
+		TelePass.LOGGER.debug("Loaded TelePass' config file {}", configEvent.getConfig().getFileName());
 	}
 
 	@SubscribeEvent
 	public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
-		TelePass.logger.debug("TelePass' config just got changed on the file system!");
+		TelePass.LOGGER.warn("TelePass' config just got changed on the file system!");
 	}
 }
