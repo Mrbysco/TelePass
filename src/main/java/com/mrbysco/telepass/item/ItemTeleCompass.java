@@ -4,11 +4,8 @@ import com.mrbysco.telepass.Reference;
 import com.mrbysco.telepass.init.TeleGroup;
 import com.mrbysco.telepass.util.PlayerUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -40,14 +37,14 @@ public class ItemTeleCompass extends Item {
 
 		if (!worldIn.isClientSide && itemstack.hasTag() && itemstack.getTag().contains(Reference.OWNER_TAG)) {
 			String ownerName = itemstack.getTag().getString(Reference.OWNER_TAG);
-			if (ownerName.equalsIgnoreCase(playerIn.getName().getContents())) {
-				playerIn.sendMessage(new TranslatableComponent("item.telepass.self"), Util.NIL_UUID);
+			if (ownerName.equalsIgnoreCase(playerIn.getGameProfile().getName())) {
+				playerIn.sendSystemMessage(Component.translatable("item.telepass.self"));
 				return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
 			}
 			boolean isOnline = false;
 
 			for (Player player : worldIn.players()) {
-				if (player.getName().getContents().equalsIgnoreCase(ownerName)) {
+				if (player.getGameProfile().getName().equalsIgnoreCase(ownerName)) {
 					isOnline = true;
 					break;
 				}
@@ -55,8 +52,8 @@ public class ItemTeleCompass extends Item {
 
 			if (isOnline) {
 				Player owner = PlayerUtil.getPlayerEntityByName(worldIn, ownerName);
-				if (owner != null && owner.getCommandSenderWorld().dimension().getRegistryName() != playerIn.getCommandSenderWorld().dimension().getRegistryName()) {
-					playerIn.sendMessage(new TranslatableComponent("item.telepass.dimension", ChatFormatting.RED + ownerName), Util.NIL_UUID);
+				if (owner != null && owner.getCommandSenderWorld().dimension().location() != playerIn.getCommandSenderWorld().dimension().location()) {
+					playerIn.sendSystemMessage(Component.translatable("item.telepass.dimension", ChatFormatting.RED + ownerName));
 					return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
 				}
 
@@ -71,7 +68,7 @@ public class ItemTeleCompass extends Item {
 					playerIn.teleportTo(owner.getX(), owner.getY(), owner.getZ());
 				}
 			} else {
-				playerIn.sendMessage(new TranslatableComponent("item.telepass.offline", ChatFormatting.RED + ownerName), Util.NIL_UUID);
+				playerIn.sendSystemMessage(Component.translatable("item.telepass.offline", ChatFormatting.RED + ownerName));
 			}
 			return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
 		} else {
@@ -85,7 +82,7 @@ public class ItemTeleCompass extends Item {
 			if ((stack.hasTag() && stack.getTag() != null && !stack.getTag().contains(Reference.OWNER_TAG)) || !stack.hasTag() || stack.getTag() == null) {
 				CompoundTag tag = stack.getTag() == null ? new CompoundTag() : stack.getTag();
 				if (entityIn instanceof Player player && !(entityIn instanceof FakePlayer)) {
-					tag.putString(Reference.OWNER_TAG, player.getName().getContents());
+					tag.putString(Reference.OWNER_TAG, player.getGameProfile().getName());
 
 					stack.setTag(tag);
 				}
@@ -99,7 +96,7 @@ public class ItemTeleCompass extends Item {
 		if (stack.hasTag() && stack.getTag() != null && stack.getTag().contains(Reference.OWNER_TAG)) {
 			CompoundTag tag = stack.getTag();
 			String owner = tag.getString(Reference.OWNER_TAG);
-			return new TextComponent(owner + "'s ").append(new TranslatableComponent(this.getDescriptionId(stack)));
+			return Component.literal(owner + "'s ").append(Component.translatable(this.getDescriptionId(stack)));
 		} else {
 			return super.getName(stack);
 		}
