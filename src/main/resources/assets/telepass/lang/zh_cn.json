@@ -1,5 +1,5 @@
 {
-    "ThisIsANote": "请不要在本地化时使用梗体中文！",
+    "this_is_a_note": "请不要在本地化时使用梗体中文！",
     
     "_comment": "Config",
     "config.telepass.gold_durability": "设置金传送票使用次数，默认为 15",
