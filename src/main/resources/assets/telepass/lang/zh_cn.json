@@ -1,17 +1,19 @@
 {
+    "this_is_a_note": "请不要在本地化时使用梗体中文！",
+    
     "_comment": "Config",
-    "config.telepass.gold_durability": "设置黄金的传送方块使用次数，默认是15啦",
-    "config.telepass.diamond_durability": "设置钻石的传送方块使用次数，默认是1000啦",
+    "config.telepass.gold_durability": "设置金传送票使用次数，默认为 15",
+    "config.telepass.diamond_durability": "设置钻石传送票使用次数，默认为 1000",
 
     "_comment": "Creative Tab",
-    "itemGroup.telepass": "传送",
+    "itemGroup.telepass": "传送票",
 
     "_comment": "Items",
-    "item.telepass.gold_telepass": "金制传送方块",
-    "item.telepass.diamond_telepass": "钻石制传送方块",
+    "item.telepass.gold_telepass": "金传送票",
+    "item.telepass.diamond_telepass": "钻石传送票",
 
     "_comment": "Messages",
-    "item.telepass.offline": "§c你要传送的这个人§r %s §c已经下线了(也有可能没上线过)，现在只能传送个寂寞§r",
-    "item.telepass.self": "§c你自己不能传送到自己这，懂？§r",
-    "item.telepass.dimension": "§c你要传送的这个人§r %s §c和你不在一个世界，所以作者不让传送了，懂？§r"
+    "item.telepass.offline": "§c你链接的玩家§r %s §c目前不在线，传送取消。§r",
+    "item.telepass.self": "§c你不能传送到自己！§r",
+    "item.telepass.dimension": "§c你链接的玩家§r %s §c与你不在同一维度，传送取消。§r"
 }
