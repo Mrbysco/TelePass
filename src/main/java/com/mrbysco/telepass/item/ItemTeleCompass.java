@@ -1,7 +1,6 @@
 package com.mrbysco.telepass.item;
 
 import com.mrbysco.telepass.Reference;
-import com.mrbysco.telepass.init.TeleGroup;
 import com.mrbysco.telepass.util.PlayerUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -22,7 +21,7 @@ public class ItemTeleCompass extends Item {
 	private final CompassMaterial material;
 
 	public ItemTeleCompass(Item.Properties properties, CompassMaterial material) {
-		super(properties.stacksTo(1).tab(TeleGroup.TELEPASS).stacksTo(1).setNoRepair());
+		super(properties.stacksTo(1).stacksTo(1).setNoRepair());
 		this.material = material;
 	}
 

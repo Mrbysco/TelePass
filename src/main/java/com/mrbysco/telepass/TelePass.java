@@ -2,7 +2,9 @@ package com.mrbysco.telepass;
 
 import com.mojang.logging.LogUtils;
 import com.mrbysco.telepass.config.TeleConfig;
+import com.mrbysco.telepass.init.TeleGroup;
 import com.mrbysco.telepass.init.TeleItems;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -20,5 +22,7 @@ public class TelePass {
 		FMLJavaModLoadingContext.get().getModEventBus().register(TeleConfig.class);
 
 		TeleItems.ITEMS.register(eventBus);
+
+		MinecraftForge.EVENT_BUS.register(new TeleGroup());
 	}
 }
