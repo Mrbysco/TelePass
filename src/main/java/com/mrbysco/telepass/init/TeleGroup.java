@@ -1,11 +1,11 @@
 package com.mrbysco.telepass.init;
 
 import com.mrbysco.telepass.Reference;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
 public class TeleGroup {
-	public static final ItemGroup TELEPASS = new ItemGroup(Reference.MOD_ID) {
+	public static final CreativeModeTab TELEPASS = new CreativeModeTab(Reference.MOD_ID) {
 		@Override
 		public ItemStack makeIcon() {
 			return new ItemStack(TeleItems.GOLD_TELEPASS.get());

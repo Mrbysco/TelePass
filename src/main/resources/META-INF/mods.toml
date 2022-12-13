@@ -1,6 +1,6 @@
 modLoader="javafml"
-loaderVersion="[34,)"
-issueTrackerURL="https://github.com/Mrbysco/telepass"
+loaderVersion="[40,)"
+issueTrackerURL="https://github.com/Mrbysco/TelePass/issues"
 license="MIT"
 
 [[mods]]
@@ -13,3 +13,9 @@ credits="'Perfect Strange' for the idea"
 description='''
 Allowing players to teleport to each other
 '''
+[[dependencies.telepass]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.18.2,1.19)"
+ordering="NONE"
+side="BOTH"

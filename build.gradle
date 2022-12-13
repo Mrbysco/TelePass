@@ -8,16 +8,18 @@ buildscript {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
+//Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+plugins {
+    id 'maven-publish'
+}
 apply plugin: 'net.minecraftforge.gradle'
-// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'maven-publish'
 
 version = "${version}"
 group = 'com.mrbysco.telepass' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "TelePass-${mc_version}"
 
 // Mojang ships Java 16 to end users in 1.17+ instead of Java 8 in 1.16 or lower, so your mod should target Java 16.
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -86,8 +88,7 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+    implementation fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 }
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {

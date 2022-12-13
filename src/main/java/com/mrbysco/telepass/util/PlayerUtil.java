@@ -1,20 +1,20 @@
 package com.mrbysco.telepass.util;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class PlayerUtil {
-    @Nullable
-    public static PlayerEntity getPlayerEntityByName(World worldIn, String name) {
-        List<? extends PlayerEntity> playerEntities = worldIn.players();
-        for (PlayerEntity playerEntity : playerEntities) {
-            if (name.equals(playerEntity.getName().getContents())) {
-                return playerEntity;
-            }
-        }
-        return null;
-    }
+	@Nullable
+	public static Player getPlayerEntityByName(Level worldIn, String name) {
+		List<? extends Player> playerEntities = worldIn.players();
+		for (Player playerEntity : playerEntities) {
+			if (name.equals(playerEntity.getName().getContents())) {
+				return playerEntity;
+			}
+		}
+		return null;
+	}
 }
