@@ -1,3 +1,6 @@
+[![build](https://github.com/Mrbysco/TelePass/actions/workflows/build.yml/badge.svg)](https://github.com/Mrbysco/TelePass/actions/workflows/build.yml)
+[![](http://cf.way2muchnoise.eu/versions/341875.svg)](https://www.curseforge.com/minecraft/mc-mods/telepass)
+
 # TelePass #
 
 ## About ##
