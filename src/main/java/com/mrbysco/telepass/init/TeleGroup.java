@@ -18,7 +18,7 @@ public class TeleGroup {
 		TELEPASS = event.registerCreativeModeTab(new ResourceLocation(Reference.MOD_ID, "telepass"), builder ->
 				builder.icon(() -> new ItemStack(TeleItems.GOLD_TELEPASS.get()))
 						.title(Component.translatable("itemGroup.telepass"))
-						.displayItems((features, output, hasPermissions) -> {
+						.displayItems((displayParameters, output) -> {
 							List<ItemStack> stacks = TeleItems.ITEMS.getEntries().stream().map(reg -> new ItemStack(reg.get())).toList();
 							output.acceptAll(stacks);
 						}));
