@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " # ",
-    "#X#",
-    " # "
-  ],
+  "category": "equipment",
   "key": {
     "#": {
       "tag": "forge:ingots/gold"
@@ -13,7 +9,13 @@
       "item": "minecraft:ender_eye"
     }
   },
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
   "result": {
     "item": "telepass:gold_telepass"
-  }
+  },
+  "show_notification": true
 }
