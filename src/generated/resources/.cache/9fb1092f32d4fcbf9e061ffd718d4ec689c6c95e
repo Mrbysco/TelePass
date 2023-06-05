@@ -1,0 +1,5 @@
+// 1.19.3	2023-06-05T16:06:29.7574861	Recipes
+cd91dbeba77c84759f273a96eb36168bc961abbc data/telepass/advancements/recipes/tools/diamond_telepass.json
+c134d409ec2d3007e31a41bb33d7600227ddeca1 data/telepass/advancements/recipes/tools/gold_telepass.json
+6bdbac824e2bb527c2d5a116035af59ac62e9a64 data/telepass/recipes/diamond_telepass.json
+76c341fe908939c8852145b5f1e71d5414daf206 data/telepass/recipes/gold_telepass.json
