@@ -1,0 +1,1 @@
+* Fix creative tab not being registered
