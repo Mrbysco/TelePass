@@ -30,5 +30,6 @@
     "recipes": [
       "telepass:gold_telepass"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

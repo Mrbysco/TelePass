@@ -30,5 +30,6 @@
     "recipes": [
       "telepass:diamond_telepass"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

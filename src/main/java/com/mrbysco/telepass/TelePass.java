@@ -21,6 +21,7 @@ public class TelePass {
 		FMLJavaModLoadingContext.get().getModEventBus().register(TeleConfig.class);
 
 		TeleItems.ITEMS.register(eventBus);
+		TeleGroup.CREATIVE_MODE_TABS.register(eventBus);
 
 		eventBus.register(new TeleGroup());
 	}

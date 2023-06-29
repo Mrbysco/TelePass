@@ -31,10 +31,10 @@ public class ItemTeleCompass extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
 
-		if (!worldIn.isClientSide && itemstack.hasTag() && itemstack.getTag().contains(Reference.OWNER_TAG)) {
+		if (!level.isClientSide && itemstack.hasTag() && itemstack.getTag().contains(Reference.OWNER_TAG)) {
 			String ownerName = itemstack.getTag().getString(Reference.OWNER_TAG);
 			if (ownerName.equalsIgnoreCase(playerIn.getGameProfile().getName())) {
 				playerIn.sendSystemMessage(Component.translatable("item.telepass.self"));
@@ -42,7 +42,7 @@ public class ItemTeleCompass extends Item {
 			}
 			boolean isOnline = false;
 
-			for (Player player : worldIn.players()) {
+			for (Player player : level.players()) {
 				if (player.getGameProfile().getName().equalsIgnoreCase(ownerName)) {
 					isOnline = true;
 					break;
@@ -50,8 +50,8 @@ public class ItemTeleCompass extends Item {
 			}
 
 			if (isOnline) {
-				Player owner = PlayerUtil.getPlayerEntityByName(worldIn, ownerName);
-				if (owner != null && owner.getCommandSenderWorld().dimension().location() != playerIn.getCommandSenderWorld().dimension().location()) {
+				Player owner = PlayerUtil.getPlayerEntityByName(level, ownerName);
+				if (owner != null && owner.level().dimension().location() != playerIn.level().dimension().location()) {
 					playerIn.sendSystemMessage(Component.translatable("item.telepass.dimension", ChatFormatting.RED + ownerName));
 					return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
 				}
@@ -61,7 +61,7 @@ public class ItemTeleCompass extends Item {
 				}
 
 				if (!(playerIn instanceof FakePlayer) && owner != null) {
-					worldIn.playSound((Player) null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 0.5F, 0.4F / (worldIn.random.nextFloat() * 0.4F + 0.8F));
+					level.playSound((Player) null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));
 					playerIn.getCooldowns().addCooldown(this, 20);
 
 					playerIn.teleportTo(owner.getX(), owner.getY(), owner.getZ());
@@ -76,8 +76,8 @@ public class ItemTeleCompass extends Item {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (!worldIn.isClientSide) {
+	public void inventoryTick(ItemStack stack, Level level, Entity entityIn, int itemSlot, boolean isSelected) {
+		if (!level.isClientSide) {
 			if ((stack.hasTag() && stack.getTag() != null && !stack.getTag().contains(Reference.OWNER_TAG)) || !stack.hasTag() || stack.getTag() == null) {
 				CompoundTag tag = stack.getTag() == null ? new CompoundTag() : stack.getTag();
 				if (entityIn instanceof Player player && !(entityIn instanceof FakePlayer)) {
@@ -87,7 +87,7 @@ public class ItemTeleCompass extends Item {
 				}
 			}
 		}
-		super.inventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
+		super.inventoryTick(stack, level, entityIn, itemSlot, isSelected);
 	}
 
 	@Override

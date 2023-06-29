@@ -1,1 +1,1 @@
-* Fix creative tab not being registered causing the TelePass' not to show up in JEI
+* Initial update to 1.20
