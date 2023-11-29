@@ -5,10 +5,10 @@ import com.mrbysco.telepass.datagen.client.TeleLanguageProvider;
 import com.mrbysco.telepass.datagen.data.TeleRecipeProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModDatagenerator {
@@ -19,7 +19,7 @@ public class ModDatagenerator {
 		ExistingFileHelper helper = event.getExistingFileHelper();
 
 		if (event.includeServer()) {
-			generator.addProvider(event.includeServer(), new TeleRecipeProvider(packOutput));
+			generator.addProvider(event.includeServer(), new TeleRecipeProvider(packOutput, event.getLookupProvider()));
 		}
 		if (event.includeClient()) {
 			generator.addProvider(event.includeClient(), new TeleLanguageProvider(packOutput));

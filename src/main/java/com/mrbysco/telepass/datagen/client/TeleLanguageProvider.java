@@ -3,7 +3,7 @@ package com.mrbysco.telepass.datagen.client;
 import com.mrbysco.telepass.Reference;
 import com.mrbysco.telepass.init.TeleItems;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public class TeleLanguageProvider extends LanguageProvider {
 	public TeleLanguageProvider(PackOutput packOutput) {

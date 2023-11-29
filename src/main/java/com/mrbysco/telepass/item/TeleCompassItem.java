@@ -15,12 +15,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.FakePlayer;
+import net.neoforged.neoforge.common.util.FakePlayer;
 
-public class ItemTeleCompass extends Item {
+public class TeleCompassItem extends Item {
 	private final CompassMaterial material;
 
-	public ItemTeleCompass(Item.Properties properties, CompassMaterial material) {
+	public TeleCompassItem(Item.Properties properties, CompassMaterial material) {
 		super(properties.stacksTo(1).stacksTo(1).setNoRepair());
 		this.material = material;
 	}
