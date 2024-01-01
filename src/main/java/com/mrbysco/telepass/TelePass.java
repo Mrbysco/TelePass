@@ -8,17 +8,15 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
 @Mod(Reference.MOD_ID)
 public class TelePass {
 	public static final Logger LOGGER = LogUtils.getLogger();
 
-	public TelePass() {
-		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+	public TelePass(IEventBus eventBus) {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, TeleConfig.commonSpec);
-		FMLJavaModLoadingContext.get().getModEventBus().register(TeleConfig.class);
+		eventBus.register(TeleConfig.class);
 
 		TeleItems.ITEMS.register(eventBus);
 		TeleGroup.CREATIVE_MODE_TABS.register(eventBus);
