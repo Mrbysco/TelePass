@@ -2,7 +2,6 @@ package com.mrbysco.telepass.registration;
 
 import com.mrbysco.telepass.Constants;
 import com.mrbysco.telepass.item.CompassMaterial;
-import com.mrbysco.telepass.item.TeleCompass;
 import com.mrbysco.telepass.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;

@@ -4,9 +4,10 @@ import com.mrbysco.telepass.Constants;
 import com.mrbysco.telepass.registration.TeleItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 
-public class TeleItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
+public class TeleItemModelProvider extends ItemModelProvider {
 	public TeleItemModelProvider(PackOutput packOutput, ExistingFileHelper helper) {
 		super(packOutput, Constants.MOD_ID, helper);
 	}
