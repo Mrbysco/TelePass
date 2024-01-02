@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "tag": "c:gold_ingots"
+    },
+    "X": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "result": {
+    "item": "telepass:gold_telepass"
+  },
+  "show_notification": true
+}

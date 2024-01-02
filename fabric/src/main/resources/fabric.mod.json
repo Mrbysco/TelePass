@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "telepass",
+  "version": "${version}",
+  "name": "Telepass",
+  "description": "Allowing players to teleport to each other",
+  "authors": [
+    "Mrbysco"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/telepass",
+    "sources": "https://github.com/Mrbysco/TelePass",
+    "issues": "https://github.com/Mrbysco/TelePass/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/modid/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "com.mrbysco.telepass.datagen.TeleDatagen"
+    ],
+    "main": [
+      "com.mrbysco.telepass.TelepassFabric"
+    ],
+    "modmenu": [
+      "com.mrbysco.telepass.config.TeleMenuIntegration"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14",
+    "fabric": "*",
+    "minecraft": "~1.20",
+    "java": ">=17",
+    "cloth-config": ">=11.0.99"
+  }
+}
+
