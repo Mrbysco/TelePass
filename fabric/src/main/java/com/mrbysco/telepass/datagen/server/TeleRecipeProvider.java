@@ -4,13 +4,10 @@ import com.mrbysco.telepass.TelepassFabric;
 import com.mrbysco.telepass.registration.TeleItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Items;
-
-import java.util.function.Consumer;
 
 public class TeleRecipeProvider extends FabricRecipeProvider {
 	public TeleRecipeProvider(FabricDataOutput output) {
