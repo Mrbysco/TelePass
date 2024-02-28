@@ -19,7 +19,7 @@ public class ModDatagenerator {
 		ExistingFileHelper helper = event.getExistingFileHelper();
 
 		if (event.includeServer()) {
-			generator.addProvider(event.includeServer(), new TeleRecipeProvider(packOutput, event.getLookupProvider()));
+			generator.addProvider(event.includeServer(), new TeleRecipeProvider(packOutput));
 		}
 		if (event.includeClient()) {
 			generator.addProvider(event.includeClient(), new TeleLanguageProvider(packOutput));

@@ -12,8 +12,8 @@ import net.neoforged.neoforge.common.Tags;
 import java.util.concurrent.CompletableFuture;
 
 public class TeleRecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
-	public TeleRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(packOutput, lookupProvider);
+	public TeleRecipeProvider(PackOutput packOutput) {
+		super(packOutput);
 	}
 
 	@Override
