@@ -1,5 +1,6 @@
 package com.mrbysco.telepass.platform;
 
+import com.mrbysco.telepass.TelepassFabric;
 import com.mrbysco.telepass.item.CompassMaterial;
 import com.mrbysco.telepass.item.FabricTeleCompass;
 import com.mrbysco.telepass.item.TeleCompass;
@@ -35,12 +36,12 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
 	@Override
 	public int goldDurability() {
-		return 0;
+		return TelepassFabric.config.get().general.goldDurability;
 	}
 
 	@Override
 	public int diamondDurability() {
-		return 0;
+		return TelepassFabric.config.get().general.diamondDurability;
 	}
 
 	@Override
