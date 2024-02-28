@@ -22,7 +22,7 @@ public class TeleCompass extends Item {
 	protected final CompassMaterial material;
 
 	public TeleCompass(Properties properties, CompassMaterial material) {
-		super(properties.stacksTo(1).stacksTo(1));
+		super(properties.durability(200));
 		this.material = material;
 	}
 
@@ -36,18 +36,18 @@ public class TeleCompass extends Item {
 				player.sendSystemMessage(Component.translatable("item.telepass.self"));
 				return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
 			}
-			boolean isOnline = false;
-
-			for (Player player1 : level.players()) {
-				if (player1.getGameProfile().getName().equalsIgnoreCase(ownerName)) {
-					isOnline = true;
-					break;
+			Player owner = null;
+			if (level.getServer() != null) {
+				for (Player player1 : level.getServer().getPlayerList().getPlayers()) {
+					if (player1.getGameProfile().getName().equalsIgnoreCase(ownerName)) {
+						owner = player1;
+						break;
+					}
 				}
 			}
 
-			if (isOnline) {
-				Player owner = PlayerUtil.getPlayerEntityByName(level, ownerName);
-				if (owner != null && owner.level().dimension().location() != player.level().dimension().location()) {
+			if (owner != null) {
+				if (owner.level().dimension().location() != player.level().dimension().location()) {
 					player.sendSystemMessage(Component.translatable("item.telepass.dimension", ChatFormatting.RED + ownerName));
 					return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
 				}
@@ -56,7 +56,7 @@ public class TeleCompass extends Item {
 					itemstack.hurtAndBreak(1, player, (player1) -> player1.broadcastBreakEvent(handIn));
 				}
 
-				if (Services.PLATFORM.notFakePlayer(player) && owner != null) {
+				if (Services.PLATFORM.notFakePlayer(player)) {
 					level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));
 					player.getCooldowns().addCooldown(this, 20);
 
