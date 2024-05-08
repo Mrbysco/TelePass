@@ -1,1 +1,1 @@
-* Fix config not applying durability properly on Fabric
+* Initial update to 1.20.6
