@@ -22,7 +22,7 @@ public class TeleCompass extends Item {
 	protected final CompassMaterial material;
 
 	public TeleCompass(Properties properties, CompassMaterial material) {
-		super(properties.durability(200));
+		super(properties);
 		this.material = material;
 	}
 

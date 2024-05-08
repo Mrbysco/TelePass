@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 public class ForgeTeleCompass extends TeleCompass {
 
 	public ForgeTeleCompass(Properties properties, CompassMaterial material) {
-		super(properties, material);
+		super(properties.durability(200), material);
 	}
 
 	@Override
