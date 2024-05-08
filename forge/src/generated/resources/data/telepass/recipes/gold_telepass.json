@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "#": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     "X": {
       "item": "minecraft:ender_eye"
@@ -15,6 +15,7 @@
     " # "
   ],
   "result": {
-    "item": "telepass:gold_telepass"
+    "count": 1,
+    "id": "telepass:gold_telepass"
   }
 }

@@ -1,10 +1,8 @@
 package com.mrbysco.telepass.item;
 
-import com.mrbysco.telepass.Constants;
 import com.mrbysco.telepass.platform.Services;
-import com.mrbysco.telepass.util.PlayerUtil;
+import com.mrbysco.telepass.registration.TeleDataComponents;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -12,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -30,8 +29,10 @@ public class TeleCompass extends Item {
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand handIn) {
 		ItemStack itemstack = player.getItemInHand(handIn);
 
-		if (!level.isClientSide && itemstack.hasTag() && itemstack.getTag().contains(Constants.OWNER_TAG)) {
-			String ownerName = itemstack.getTag().getString(Constants.OWNER_TAG);
+		if (!level.isClientSide && itemstack.has(TeleDataComponents.OWNER.get())) {
+			String ownerName = itemstack.getOrDefault(TeleDataComponents.OWNER.get(), "");
+			if (ownerName.isEmpty()) return InteractionResultHolder.pass(itemstack);
+
 			if (ownerName.equalsIgnoreCase(player.getGameProfile().getName())) {
 				player.sendSystemMessage(Component.translatable("item.telepass.self"));
 				return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
@@ -53,7 +54,7 @@ public class TeleCompass extends Item {
 				}
 
 				if (!player.getAbilities().instabuild) {
-					itemstack.hurtAndBreak(1, player, (player1) -> player1.broadcastBreakEvent(handIn));
+					itemstack.hurtAndBreak(1, player, handIn == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
 				}
 
 				if (Services.PLATFORM.notFakePlayer(player)) {
@@ -74,12 +75,9 @@ public class TeleCompass extends Item {
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (!level.isClientSide) {
-			if ((stack.hasTag() && stack.getTag() != null && !stack.getTag().contains(Constants.OWNER_TAG)) || !stack.hasTag() || stack.getTag() == null) {
-				CompoundTag tag = stack.getTag() == null ? new CompoundTag() : stack.getTag();
+			if (!stack.has(TeleDataComponents.OWNER.get())) {
 				if (entityIn instanceof Player player && Services.PLATFORM.notFakePlayer(player)) {
-					tag.putString(Constants.OWNER_TAG, player.getGameProfile().getName());
-
-					stack.setTag(tag);
+					stack.set(TeleDataComponents.OWNER.get(), player.getGameProfile().getName());
 				}
 			}
 		}
@@ -88,9 +86,9 @@ public class TeleCompass extends Item {
 
 	@Override
 	public Component getName(ItemStack stack) {
-		if (stack.hasTag() && stack.getTag() != null && stack.getTag().contains(Constants.OWNER_TAG)) {
-			CompoundTag tag = stack.getTag();
-			String owner = tag.getString(Constants.OWNER_TAG);
+		if (stack.has(TeleDataComponents.OWNER.get())) {
+			String owner = stack.getOrDefault(TeleDataComponents.OWNER.get(), "");
+			if (owner.isEmpty()) return super.getName(stack);
 			return Component.literal(owner + "'s ").append(Component.translatable(this.getDescriptionId(stack)));
 		} else {
 			return super.getName(stack);

@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "#": {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     "X": {
       "item": "minecraft:ender_eye"
@@ -15,6 +15,7 @@
     " # "
   ],
   "result": {
-    "item": "telepass:diamond_telepass"
+    "count": 1,
+    "id": "telepass:diamond_telepass"
   }
 }

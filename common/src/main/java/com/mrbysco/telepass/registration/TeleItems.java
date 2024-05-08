@@ -11,18 +11,19 @@ import net.minecraft.world.item.Item;
  */
 public class TeleItems {
 
-    /**
-     * The provider for items
-     */
-    public static final RegistrationProvider<Item> ITEMS = RegistrationProvider.get(BuiltInRegistries.ITEM, Constants.MOD_ID);
+	/**
+	 * The provider for items
+	 */
+	public static final RegistrationProvider<Item> ITEMS = RegistrationProvider.get(BuiltInRegistries.ITEM, Constants.MOD_ID);
 
-    public static final RegistryObject<Item> GOLD_TELEPASS = ITEMS.register("gold_telepass", () -> Services.PLATFORM.createCompass(itemBuilder(), CompassMaterial.GOLD));
-    public static final RegistryObject<Item> DIAMOND_TELEPASS = ITEMS.register("diamond_telepass", () -> Services.PLATFORM.createCompass(itemBuilder(), CompassMaterial.DIAMOND));
+	public static final RegistryObject<Item> GOLD_TELEPASS = ITEMS.register("gold_telepass", () -> Services.PLATFORM.createCompass(itemBuilder(), CompassMaterial.GOLD));
+	public static final RegistryObject<Item> DIAMOND_TELEPASS = ITEMS.register("diamond_telepass", () -> Services.PLATFORM.createCompass(itemBuilder(), CompassMaterial.DIAMOND));
 
-    private static Item.Properties itemBuilder() {
-        return new Item.Properties();
-    }
+	private static Item.Properties itemBuilder() {
+		return new Item.Properties();
+	}
 
-    // Called in the mod initializer / constructor in order to make sure that items are registered
-    public static void loadClass() {}
+	// Called in the mod initializer / constructor in order to make sure that items are registered
+	public static void loadClass() {
+	}
 }

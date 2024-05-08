@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class TeleItemTagProvider extends ItemTagsProvider {
 	public TeleItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture,
-							   FabricTagProvider.BlockTagProvider blockTagsProvider) {
+	                           FabricTagProvider.BlockTagProvider blockTagsProvider) {
 		super(output, completableFuture, blockTagsProvider.contentsGetter());
 	}
 

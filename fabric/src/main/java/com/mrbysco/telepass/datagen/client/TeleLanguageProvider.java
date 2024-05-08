@@ -3,14 +3,17 @@ package com.mrbysco.telepass.datagen.client;
 import com.mrbysco.telepass.registration.TeleItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.core.HolderLookup;
+
+import java.util.concurrent.CompletableFuture;
 
 public class TeleLanguageProvider extends FabricLanguageProvider {
-	public TeleLanguageProvider(FabricDataOutput dataOutput) {
-		super(dataOutput);
+	public TeleLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
+		super(dataOutput, completableFuture);
 	}
 
 	@Override
-	public void generateTranslations(TranslationBuilder builder) {
+	public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder builder) {
 		builder.add("itemGroup.telepass", "TelePass");
 
 		builder.add(TeleItems.GOLD_TELEPASS.get(), "Gold TelePass");

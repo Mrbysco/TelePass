@@ -2,7 +2,7 @@ package com.mrbysco.telepass.platform;
 
 import com.mrbysco.telepass.config.TeleConfig;
 import com.mrbysco.telepass.item.CompassMaterial;
-import com.mrbysco.telepass.item.ForgeTeleCompass;
+import com.mrbysco.telepass.item.NeoForgeTeleCompass;
 import com.mrbysco.telepass.item.TeleCompass;
 import com.mrbysco.telepass.platform.services.IPlatformHelper;
 import com.mrbysco.telepass.registration.TeleItems;
@@ -32,7 +32,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
 	@Override
 	public TeleCompass createCompass(Item.Properties properties, CompassMaterial material) {
-		return new ForgeTeleCompass(properties, material);
+		return new NeoForgeTeleCompass(properties, material);
 	}
 
 	@Override
