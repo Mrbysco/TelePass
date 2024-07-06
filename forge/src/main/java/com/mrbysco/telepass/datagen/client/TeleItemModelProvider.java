@@ -19,7 +19,7 @@ public class TeleItemModelProvider extends ItemModelProvider {
 	}
 
 	private void generatedItem(ResourceLocation location) {
-		singleTexture(location.getPath(), new ResourceLocation("item/generated"),
-				"layer0", new ResourceLocation(location.getNamespace(), "item/" + location.getPath()));
+		singleTexture(location.getPath(), ResourceLocation.withDefaultNamespace("item/generated"),
+				"layer0", ResourceLocation.fromNamespaceAndPath(location.getNamespace(), "item/" + location.getPath()));
 	}
 }

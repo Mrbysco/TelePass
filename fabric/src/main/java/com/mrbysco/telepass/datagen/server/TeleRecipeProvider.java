@@ -1,9 +1,9 @@
 package com.mrbysco.telepass.datagen.server;
 
-import com.mrbysco.telepass.TelepassFabric;
 import com.mrbysco.telepass.registration.TeleItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -21,13 +21,13 @@ public class TeleRecipeProvider extends FabricRecipeProvider {
 	public void buildRecipes(RecipeOutput recipeOutput) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, TeleItems.GOLD_TELEPASS.get())
 				.pattern(" # ").pattern("#X#").pattern(" # ")
-				.define('#', TelepassFabric.GOLD_INGOTS)
+				.define('#', ConventionalItemTags.GOLD_INGOTS)
 				.define('X', Items.ENDER_EYE)
 				.unlockedBy("has_ender_eye", has(Items.ENDER_EYE)).save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, TeleItems.DIAMOND_TELEPASS.get())
 				.pattern(" # ").pattern("#X#").pattern(" # ")
-				.define('#', TelepassFabric.DIAMONDS)
+				.define('#', ConventionalItemTags.DIAMOND_GEMS)
 				.define('X', Items.ENDER_EYE)
 				.unlockedBy("has_ender_eye", has(Items.ENDER_EYE)).save(recipeOutput);
 	}
