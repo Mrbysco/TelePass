@@ -2,7 +2,7 @@ package com.mrbysco.telepass.datagen;
 
 import com.mrbysco.telepass.datagen.client.TeleItemModelProvider;
 import com.mrbysco.telepass.datagen.client.TeleLanguageProvider;
-import com.mrbysco.telepass.datagen.data.TeleRecipeProvider;
+import com.mrbysco.telepass.datagen.data.TeleRecipeRunner;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -23,7 +23,7 @@ public class ModDatagenerator {
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
 		if (event.includeServer()) {
-			generator.addProvider(event.includeServer(), new TeleRecipeProvider(packOutput, lookupProvider));
+			generator.addProvider(event.includeServer(), new TeleRecipeRunner(packOutput, lookupProvider));
 		}
 		if (event.includeClient()) {
 			generator.addProvider(event.includeClient(), new TeleLanguageProvider(packOutput));

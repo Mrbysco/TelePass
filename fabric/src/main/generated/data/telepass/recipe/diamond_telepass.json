@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "#": {
-      "tag": "c:gems/diamond"
-    },
-    "X": {
-      "item": "minecraft:ender_eye"
-    }
+    "#": "#c:gems/diamond",
+    "X": "minecraft:ender_eye"
   },
   "pattern": [
     " # ",

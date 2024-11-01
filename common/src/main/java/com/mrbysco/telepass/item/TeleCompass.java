@@ -4,11 +4,11 @@ import com.mrbysco.telepass.platform.Services;
 import com.mrbysco.telepass.registration.TeleDataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -26,16 +26,16 @@ public class TeleCompass extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand handIn) {
+	public InteractionResult use(Level level, Player player, InteractionHand handIn) {
 		ItemStack itemstack = player.getItemInHand(handIn);
 
-		if (!level.isClientSide && itemstack.has(TeleDataComponents.OWNER.get())) {
+		if (!level.isClientSide && player instanceof ServerPlayer serverPlayer  && itemstack.has(TeleDataComponents.OWNER.get())) {
 			String ownerName = itemstack.getOrDefault(TeleDataComponents.OWNER.get(), "");
-			if (ownerName.isEmpty()) return InteractionResultHolder.pass(itemstack);
+			if (ownerName.isEmpty()) return InteractionResult.PASS;
 
 			if (ownerName.equalsIgnoreCase(player.getGameProfile().getName())) {
-				player.sendSystemMessage(Component.translatable("item.telepass.self"));
-				return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
+				serverPlayer.sendSystemMessage(Component.translatable("item.telepass.self"));
+				return InteractionResult.SUCCESS;
 			}
 			Player owner = null;
 			if (level.getServer() != null) {
@@ -49,8 +49,8 @@ public class TeleCompass extends Item {
 
 			if (owner != null) {
 				if (owner.level().dimension().location() != player.level().dimension().location()) {
-					player.sendSystemMessage(Component.translatable("item.telepass.dimension", ChatFormatting.RED + ownerName));
-					return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
+					serverPlayer.sendSystemMessage(Component.translatable("item.telepass.dimension", ChatFormatting.RED + ownerName));
+					return InteractionResult.SUCCESS;
 				}
 
 				if (!player.getAbilities().instabuild) {
@@ -59,16 +59,16 @@ public class TeleCompass extends Item {
 
 				if (Services.PLATFORM.notFakePlayer(player)) {
 					level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));
-					player.getCooldowns().addCooldown(this, 20);
+					player.getCooldowns().addCooldown(itemstack, 20);
 
 					player.teleportTo(owner.getX(), owner.getY(), owner.getZ());
 				}
 			} else {
-				player.sendSystemMessage(Component.translatable("item.telepass.offline", ChatFormatting.RED + ownerName));
+				serverPlayer.sendSystemMessage(Component.translatable("item.telepass.offline", ChatFormatting.RED + ownerName));
 			}
-			return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
+			return InteractionResult.SUCCESS;
 		} else {
-			return new InteractionResultHolder<>(InteractionResult.FAIL, itemstack);
+			return InteractionResult.FAIL;
 		}
 	}
 
@@ -89,7 +89,7 @@ public class TeleCompass extends Item {
 		if (stack.has(TeleDataComponents.OWNER.get())) {
 			String owner = stack.getOrDefault(TeleDataComponents.OWNER.get(), "");
 			if (owner.isEmpty()) return super.getName(stack);
-			return Component.literal(owner + "'s ").append(Component.translatable(this.getDescriptionId(stack)));
+			return Component.literal(owner + "'s ").append(Component.translatable(this.getDescriptionId()));
 		} else {
 			return super.getName(stack);
 		}

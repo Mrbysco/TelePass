@@ -2,7 +2,7 @@ package com.mrbysco.telepass.datagen;
 
 import com.mrbysco.telepass.datagen.client.TeleItemModelProvider;
 import com.mrbysco.telepass.datagen.client.TeleLanguageProvider;
-import com.mrbysco.telepass.datagen.server.TeleRecipeProvider;
+import com.mrbysco.telepass.datagen.server.TeleRecipeRunner;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
@@ -11,7 +11,7 @@ public class TeleDatagen implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {
 		var pack = generator.createPack();
 
-		pack.addProvider(TeleRecipeProvider::new);
+		pack.addProvider(TeleRecipeRunner::new);
 		pack.addProvider(TeleLanguageProvider::new);
 		pack.addProvider(TeleItemModelProvider::new);
 	}
