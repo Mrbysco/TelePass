@@ -126,6 +126,6 @@ if (System.getenv().MODRINTH_KEY) {
         uploadFile = jar
         changelog = fileContents
         gameVersions = ["${minecraft_version}"]
-        loaders = ["forge"]
+        loaders = ["neoforge"]
     }
 }
