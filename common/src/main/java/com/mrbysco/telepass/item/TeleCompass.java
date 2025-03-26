@@ -2,6 +2,7 @@ package com.mrbysco.telepass.item;
 
 import com.mrbysco.telepass.platform.Services;
 import com.mrbysco.telepass.registration.TeleDataComponents;
+import com.mrbysco.telepass.util.PlayerUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,18 +38,10 @@ public class TeleCompass extends Item {
 				serverPlayer.sendSystemMessage(Component.translatable("item.telepass.self"));
 				return InteractionResult.SUCCESS;
 			}
-			Player owner = null;
-			if (level.getServer() != null) {
-				for (Player player1 : level.getServer().getPlayerList().getPlayers()) {
-					if (player1.getGameProfile().getName().equalsIgnoreCase(ownerName)) {
-						owner = player1;
-						break;
-					}
-				}
-			}
 
+			Player owner = PlayerUtil.getPlayerEntityByName(level, ownerName);
 			if (owner != null) {
-				if (owner.level().dimension().location() != player.level().dimension().location()) {
+				if (!owner.level().dimension().location().equals(player.level().dimension().location())) {
 					serverPlayer.sendSystemMessage(Component.translatable("item.telepass.dimension", ChatFormatting.RED + ownerName));
 					return InteractionResult.SUCCESS;
 				}
