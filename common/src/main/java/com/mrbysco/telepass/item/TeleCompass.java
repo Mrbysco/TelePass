@@ -5,6 +5,7 @@ import com.mrbysco.telepass.registration.TeleDataComponents;
 import com.mrbysco.telepass.util.PlayerUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public class TeleCompass extends Item {
 
@@ -66,15 +68,15 @@ public class TeleCompass extends Item {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, Level level, Entity entityIn, int itemSlot, boolean isSelected) {
+	public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
 		if (!level.isClientSide) {
 			if (!stack.has(TeleDataComponents.OWNER.get())) {
-				if (entityIn instanceof Player player && Services.PLATFORM.notFakePlayer(player)) {
+				if (entity instanceof Player player && Services.PLATFORM.notFakePlayer(player)) {
 					stack.set(TeleDataComponents.OWNER.get(), player.getGameProfile().getName());
 				}
 			}
 		}
-		super.inventoryTick(stack, level, entityIn, itemSlot, isSelected);
+		super.inventoryTick(stack, level, entity, slot);
 	}
 
 	@Override
