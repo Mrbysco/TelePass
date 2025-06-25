@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TeleCompass extends Item {
@@ -28,8 +29,9 @@ public class TeleCompass extends Item {
 		this.material = material;
 	}
 
+	@NotNull
 	@Override
-	public InteractionResult use(Level level, Player player, InteractionHand handIn) {
+	public InteractionResult use(Level level, Player player, @NotNull InteractionHand handIn) {
 		ItemStack itemstack = player.getItemInHand(handIn);
 
 		if (!level.isClientSide && player instanceof ServerPlayer serverPlayer  && itemstack.has(TeleDataComponents.OWNER.get())) {
@@ -68,7 +70,7 @@ public class TeleCompass extends Item {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
+	public void inventoryTick(@NotNull ItemStack stack, ServerLevel level, @NotNull Entity entity, @Nullable EquipmentSlot slot) {
 		if (!level.isClientSide) {
 			if (!stack.has(TeleDataComponents.OWNER.get())) {
 				if (entity instanceof Player player && Services.PLATFORM.notFakePlayer(player)) {
@@ -79,6 +81,7 @@ public class TeleCompass extends Item {
 		super.inventoryTick(stack, level, entity, slot);
 	}
 
+	@NotNull
 	@Override
 	public Component getName(ItemStack stack) {
 		if (stack.has(TeleDataComponents.OWNER.get())) {

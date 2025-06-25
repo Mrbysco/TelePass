@@ -6,7 +6,7 @@ import com.mrbysco.telepass.item.FabricTeleCompass;
 import com.mrbysco.telepass.item.TeleCompass;
 import com.mrbysco.telepass.platform.services.IPlatformHelper;
 import com.mrbysco.telepass.registration.TeleItems;
-import net.fabricmc.fabric.impl.itemgroup.FabricItemGroupBuilderImpl;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
@@ -20,7 +20,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
 	@Override
 	public CreativeModeTab buildCreativeTab() {
-		return new FabricItemGroupBuilderImpl()
+		return FabricItemGroup.builder()
 				.icon(() -> new ItemStack(TeleItems.GOLD_TELEPASS.get()))
 				.title(Component.translatable("itemGroup.telepass"))
 				.displayItems((displayParameters, output) -> {
