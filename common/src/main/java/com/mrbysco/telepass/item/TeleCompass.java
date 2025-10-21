@@ -34,18 +34,18 @@ public class TeleCompass extends Item {
 	public InteractionResult use(Level level, Player player, @NotNull InteractionHand handIn) {
 		ItemStack itemstack = player.getItemInHand(handIn);
 
-		if (!level.isClientSide && player instanceof ServerPlayer serverPlayer  && itemstack.has(TeleDataComponents.OWNER.get())) {
+		if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer  && itemstack.has(TeleDataComponents.OWNER.get())) {
 			String ownerName = itemstack.getOrDefault(TeleDataComponents.OWNER.get(), "");
 			if (ownerName.isEmpty()) return InteractionResult.PASS;
 
-			if (ownerName.equalsIgnoreCase(player.getGameProfile().getName())) {
+			if (ownerName.equalsIgnoreCase(player.getGameProfile().name())) {
 				serverPlayer.sendSystemMessage(Component.translatable("item.telepass.self"));
 				return InteractionResult.SUCCESS;
 			}
 
 			Player owner = PlayerUtil.getPlayerEntityByName(level, ownerName);
 			if (owner != null) {
-				if (!owner.level().dimension().location().equals(player.level().dimension().location())) {
+				if (!owner.level().dimension().equals(player.level().dimension())) {
 					serverPlayer.sendSystemMessage(Component.translatable("item.telepass.dimension", ChatFormatting.RED + ownerName));
 					return InteractionResult.SUCCESS;
 				}
@@ -71,10 +71,10 @@ public class TeleCompass extends Item {
 
 	@Override
 	public void inventoryTick(@NotNull ItemStack stack, ServerLevel level, @NotNull Entity entity, @Nullable EquipmentSlot slot) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			if (!stack.has(TeleDataComponents.OWNER.get())) {
 				if (entity instanceof Player player && Services.PLATFORM.notFakePlayer(player)) {
-					stack.set(TeleDataComponents.OWNER.get(), player.getGameProfile().getName());
+					stack.set(TeleDataComponents.OWNER.get(), player.getGameProfile().name());
 				}
 			}
 		}
