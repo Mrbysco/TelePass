@@ -6,7 +6,7 @@ import com.mrbysco.telepass.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 /**
@@ -27,7 +27,7 @@ public class TeleItems {
 	}
 
 	private static ResourceKey<Item> getKey(String name) {
-		return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name));
+		return ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, name));
 	}
 
 	private static Item.Properties itemBuilder() {
