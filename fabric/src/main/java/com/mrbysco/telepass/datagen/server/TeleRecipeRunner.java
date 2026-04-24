@@ -1,7 +1,7 @@
 package com.mrbysco.telepass.datagen.server;
 
 import com.mrbysco.telepass.registration.TeleItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.CompletableFuture;
 
 public class TeleRecipeRunner extends FabricRecipeProvider {
-	public TeleRecipeRunner(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	public TeleRecipeRunner(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 

@@ -1,14 +1,14 @@
 package com.mrbysco.telepass.datagen.client;
 
 import com.mrbysco.telepass.registration.TeleItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
 
 import java.util.concurrent.CompletableFuture;
 
 public class TeleLanguageProvider extends FabricLanguageProvider {
-	public TeleLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
+	public TeleLanguageProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
 		super(dataOutput, completableFuture);
 	}
 

@@ -1,6 +1,5 @@
 package com.mrbysco.telepass.platform;
 
-import com.mrbysco.telepass.config.TeleConfig;
 import com.mrbysco.telepass.item.CompassMaterial;
 import com.mrbysco.telepass.item.NeoForgeTeleCompass;
 import com.mrbysco.telepass.item.TeleCompass;
@@ -33,16 +32,6 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 	@Override
 	public TeleCompass createCompass(Item.Properties properties, CompassMaterial material) {
 		return new NeoForgeTeleCompass(properties, material);
-	}
-
-	@Override
-	public int goldDurability() {
-		return TeleConfig.COMMON.goldDurability.get();
-	}
-
-	@Override
-	public int diamondDurability() {
-		return TeleConfig.COMMON.diamondDurability.get();
 	}
 
 	@Override

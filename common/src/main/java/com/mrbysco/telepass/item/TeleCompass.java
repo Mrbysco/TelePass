@@ -34,7 +34,7 @@ public class TeleCompass extends Item {
 	public InteractionResult use(Level level, Player player, @NotNull InteractionHand handIn) {
 		ItemStack itemstack = player.getItemInHand(handIn);
 
-		if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer  && itemstack.has(TeleDataComponents.OWNER.get())) {
+		if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer && itemstack.has(TeleDataComponents.OWNER.get())) {
 			String ownerName = itemstack.getOrDefault(TeleDataComponents.OWNER.get(), "");
 			if (ownerName.isEmpty()) return InteractionResult.PASS;
 
@@ -55,7 +55,9 @@ public class TeleCompass extends Item {
 				}
 
 				if (Services.PLATFORM.notFakePlayer(player)) {
-					level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));
+					level.playSound((Player) null, player.getX(), player.getY(), player.getZ(),
+							SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL,
+							0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
 					player.getCooldowns().addCooldown(itemstack, 20);
 
 					player.teleportTo(owner.getX(), owner.getY(), owner.getZ());

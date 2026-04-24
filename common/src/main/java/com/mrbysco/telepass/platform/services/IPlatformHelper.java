@@ -22,20 +22,6 @@ public interface IPlatformHelper {
 	TeleCompass createCompass(Item.Properties properties, CompassMaterial material);
 
 	/**
-	 * Get the configured durability for the gold telepass.
-	 *
-	 * @return durability
-	 */
-	int goldDurability();
-
-	/**
-	 * Get the configured durability for the diamond telepass.
-	 *
-	 * @return durability
-	 */
-	int diamondDurability();
-
-	/**
 	 * Check if the player is not a fake player.
 	 *
 	 * @param player The player to check

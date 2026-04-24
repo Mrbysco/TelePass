@@ -1,12 +1,11 @@
 package com.mrbysco.telepass.platform;
 
-import com.mrbysco.telepass.TelepassFabric;
 import com.mrbysco.telepass.item.CompassMaterial;
 import com.mrbysco.telepass.item.FabricTeleCompass;
 import com.mrbysco.telepass.item.TeleCompass;
 import com.mrbysco.telepass.platform.services.IPlatformHelper;
 import com.mrbysco.telepass.registration.TeleItems;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
@@ -20,7 +19,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
 	@Override
 	public CreativeModeTab buildCreativeTab() {
-		return FabricItemGroup.builder()
+		return FabricCreativeModeTab.builder()
 				.icon(() -> new ItemStack(TeleItems.GOLD_TELEPASS.get()))
 				.title(Component.translatable("itemGroup.telepass"))
 				.displayItems((displayParameters, output) -> {
@@ -32,16 +31,6 @@ public class FabricPlatformHelper implements IPlatformHelper {
 	@Override
 	public TeleCompass createCompass(Item.Properties properties, CompassMaterial material) {
 		return new FabricTeleCompass(properties, material);
-	}
-
-	@Override
-	public int goldDurability() {
-		return TelepassFabric.config.get().general.goldDurability;
-	}
-
-	@Override
-	public int diamondDurability() {
-		return TelepassFabric.config.get().general.diamondDurability;
 	}
 
 	@Override

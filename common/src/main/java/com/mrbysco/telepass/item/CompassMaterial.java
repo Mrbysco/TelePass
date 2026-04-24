@@ -1,12 +1,12 @@
 package com.mrbysco.telepass.item;
 
-import com.mrbysco.telepass.platform.Services;
+import com.mrbysco.telepass.config.TeleConfig;
 
 import java.util.function.Supplier;
 
 public enum CompassMaterial {
-	GOLD(Services.PLATFORM::goldDurability),
-	DIAMOND(Services.PLATFORM::diamondDurability);
+	GOLD(TeleConfig.COMMON.goldDurability),
+	DIAMOND(TeleConfig.COMMON.diamondDurability);
 
 	private final Supplier<Integer> durability;
 
