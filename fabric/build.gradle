@@ -137,7 +137,7 @@ if (System.getenv().MODRINTH_KEY) {
         versionType = "beta"
         versionName = "${mod_name} ${minecraft_version}"
         versionNumber = project.version
-        uploadFile = remapJar
+        uploadFile = jar
         changelog = fileContents
         gameVersions = ["${minecraft_version}"]
         loaders = ["fabric"]
