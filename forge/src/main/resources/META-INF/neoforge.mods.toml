@@ -16,12 +16,12 @@ Allowing players to teleport to each other
 [[dependencies.telepass]]
 modId="minecraft"
 type="REQUIRED"
-versionRange="[26.2,)"
+versionRange="[26.3,)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.telepass]]
 modId="neoforge"
 type="REQUIRED"
-versionRange="[26.2.0.43-beta,)"
+versionRange="[26.3.0.37-beta,)"
 ordering="NONE"
 side="BOTH"

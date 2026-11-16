@@ -13,7 +13,7 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 public class TelepassNeoForge {
 
 	public TelepassNeoForge(IEventBus eventBus, ModContainer container, Dist dist) {
-		container.registerConfig(ModConfig.Type.COMMON, TeleConfig.commonSpec);
+		container.registerConfig(ModConfig.Type.LOCAL, TeleConfig.commonSpec);
 
 		CommonClass.init();
 

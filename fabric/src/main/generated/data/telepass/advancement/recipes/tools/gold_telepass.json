@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "telepass:gold_telepass"
+        "recipes": "telepass:gold_telepass"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

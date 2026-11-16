@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "telepass:diamond_telepass"
+        "recipes": "telepass:diamond_telepass"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
